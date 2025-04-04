@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Task Manager</h1>
+            <p class="subtitle">Powered by Supabase and Flask</p>
+        </header>
+        
+        <div class="operations">
+            <div class="operation-section">
+                <h2>Add New Task</h2>
+                <form id="addForm">
+                    <div class="form-group">
+                        <label for="tasktitle">Title</label>
+                        <input type="text" id="tasktitle" placeholder="Enter task title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="taskcompleted">Completed</label>
+                        <textarea id="taskcompleted" placeholder="Enter task completed" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                            <label for="taskcreated_at">Created At</label>
+                            <input type="datetime-local" id="taskcreated_at" required>
+                    </div>
+                    
+                    <button type="submit" class="primary-btn">Add Task</button>
+                </form>
+            </div>
+
+            <div class="operation-section">
+                <h2>Your Tasks</h2>
+                <div class="filter-bar">
+                    <input type="text" id="searchInput" placeholder="Search tasks..." class="search-input">
+                </div>
+                <div id="records" class="records-list">
+                    <!-- Records will be populated here -->
+                    <div class="loading">Loading tasks...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification container added in JavaScript -->
+    <div id="notification-container"></div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

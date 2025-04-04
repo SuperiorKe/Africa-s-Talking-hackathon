@@ -1,0 +1,20 @@
+Today's goals.
+
+I will be able to access and interact with the worklog database using python's supabase-py library.
+
+I will build a react application and a restful API that will fetch and update data from a simple intuitive user interface.
+
+The interface will be responsive and enable users to create, update or delete entries.
+
+I will make sure to set up media upload so that users can include images or videos as part of the record.
+
+I want a description of the task done, an image, the time of day and amount of time spent on the task.
+
+
+I have configured a user interface that interacts with the database and retrieves information, and displays it intuitively on the User interface.
+
+The edit functionality is working correctly. 
+
+I should implement add task and delete task functionality correctly.
+
+User should be able to generate a weekly summary for 7 days.
