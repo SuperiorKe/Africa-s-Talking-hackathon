@@ -26,7 +26,7 @@ def static_files(path):
 @app.route('/api/records', methods=['GET'])
 def get_records():
     try:
-        response = supabase.table('tasks').select('*').execute()
+        response = supabase.table('work_logs').select('*').execute()
         return jsonify(response.data)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
@@ -34,7 +34,7 @@ def get_records():
 @app.route('/api/records/<id>', methods=['GET'])
 def get_record(id):
     try:
-        response = supabase.table('tasks').select('*').eq('id', id).execute()
+        response = supabase.table('worklogs').select('*').eq('id', id).execute()
         return jsonify(response.data)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
@@ -43,14 +43,15 @@ def get_record(id):
 def create_record():
     try:
         data = request.json
-        if not all(k in data for k in ['title', 'completed', 'created_at']):
+        if not all(k in data for k in ['user_id', 'description', 'image-url', 'created_at']):
             return jsonify({'error': 'Missing required fields'}), 400
             
         task_data = {
-            'title': data.get('title'),
-            'completed': data.get('completed'),
+            'user': data.get('user_id'),
+            'description': data.get('description'),
+            'image': data.get('image-url'),
             'created_at': data.get('created_at'),
-            'user_id': 'abb6bcb5-436d-4a2d-90be-da08e2c6cfcb'
+            # 'user_id': ''
         }
         response = supabase.table('tasks').insert(task_data).execute()
         return jsonify(response.data)
@@ -61,18 +62,23 @@ def create_record():
 def update_record(id):
     try:
         data = request.json
-        if not any(k in data for k in ['title', 'completed', 'created_at']):
+        if not any(k in data for k in ['user_id', 'description', 'image-url', 'created_at']):
             return jsonify({'error': 'No fields to update'}), 400
             
         task_data = {}
-        if 'title' in data:
-            task_data['title'] = data.get('title')
-            if 'completed' in data:
-                task_data['completed'] = data.get('completed')
+        if 'user_id' in data:
+            task_data['user_id'] = data.get('user_id')
+
+            if 'description' in data:
+                task_data['description'] = data.get('description')
+                
+        if 'image-url' in data:
+            task_data['image-url'] = data.get('image-url')
+
         if 'created_at' in data:
             task_data['created_at'] = data.get('created_at')
             
-        response = supabase.table('tasks').update(task_data).eq('id', id).execute()
+        response = supabase.table('work_logs').update(task_data).eq('id', id).execute()
         return jsonify(response.data)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
@@ -80,8 +86,8 @@ def update_record(id):
 @app.route('/api/records/<id>', methods=['DELETE'])
 def delete_record(id):
     try:
-        # Fixed: Changed 'users' to 'tasks'
-        response = supabase.table('tasks').delete().eq('id', id).execute()
+        # Fixed: Changed 'users' to 'work_logs'
+        response = supabase.table('work_logs').delete().eq('id', id).execute()
         return jsonify(response.data)
     except Exception as e:
         return jsonify({'error': str(e)}), 500

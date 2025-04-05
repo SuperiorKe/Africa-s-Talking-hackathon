@@ -15,14 +15,14 @@ try:
     
     # First test the connection with a select query
     test_response = (
-        supabase.table("tasks")
+        supabase.table("work_logs")
         .select("*")
         .execute()
     )
     print("Connection successful!")
 
     select_response = (
-        supabase.table("tasks")
+        supabase.table("work_logs")
         .select("*")
         .execute()
     )
